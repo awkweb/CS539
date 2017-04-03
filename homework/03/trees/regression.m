@@ -11,10 +11,6 @@ adult_data.Properties.VariableNames = {'age', 'work_class', 'fnlwgt',...
     'relationship', 'race', 'sex', 'capital_gain', 'capital_loss',...
     'hours_per_week', 'native_country','salary'};
 
-X = adult_data(:,{'age', 'work_class', 'education_num', 'marital_status',...
-    'race', 'sex', 'capital_gain', 'capital_loss', 'hours_per_week',...
-    'salary'});
-
 % =========================================================================
 % 1. Use Matlab functions to construct regression trees over the dataset using
 % 4-fold cross-validation. Briefly describe in your report the functions that
@@ -25,16 +21,51 @@ X = adult_data(:,{'age', 'work_class', 'education_num', 'marital_status',...
 % Relative Square Error (RSE), Coeffient of Determination (R2), size of the
 % tree (number of nodes and/or number of leaves), and runtime.
 
-tree = fitrtree(X, 'education_num', 'CrossVal', 'on', 'Kfold', 4);
-label = kfoldPredict(tree);
-kfoldLoss(tree)
+% Split data into inputs and target
+cvp_indices = cvpartition(height(adult_data), 'holdout', 0.25);
+adult_data_cvp = adult_data(training(cvp_indices),:);
+X = adult_data_cvp(:,{'age', 'work_class', 'marital_status', 'race',...
+                      'sex', 'capital_gain', 'capital_loss',...
+                      'hours_per_week', 'salary'});
+Y = adult_data_cvp(:,{'education_num'});
 
-tree_prune = fitrtree(X, 'education_num', 'CrossVal', 'on', 'KFold', 4, 'Prune', 'on');
-label_prune = kfoldPredict(tree_prune);
-kfoldLoss(tree_prune)
+tree = fitrtree(X, Y, 'MaxNumSplits', 20, 'MinLeafSize', 8,...
+                'PredictorSelection', 'curvature', 'Surrogate', 'on');
+cv_tree = crossval(tree, 'Kfold', 4);
+time_start = tic;
+label = kfoldPredict(cv_tree);
+time_elapsed = toc(time_start);
+
+display(cv_tree);
+display(time_elapsed);
+
+sse = mean(kfoldfun(cv_tree, @sseEval));
+rmse = mean(kfoldfun(cv_tree, @rmseEval));
+rse = mean(kfoldfun(cv_tree, @rseEval));
+r2 = mean(kfoldfun(cv_tree, @r2Eval));
+
+display(sse);
+display(rmse);
+display(rse);
+display(r2);
 
 % =========================================================================
-% 2. Select the pruned tree with smallest size. Use Matlab plotting functions
-% to depict the tree. Include the plot in your report (or at least the top
-% levels if the tree is too large). Briefly comment on any interesting aspect
-% of this tree.
+% Sum of Square Errors (SSE), Root Mean Square Error (RMSE),
+% Relative Square Error (RSE), Coeffient of Determination (R2)
+function sse = sseEval(cmp, Xtrain, Ytrain, Wtrain, Xtest, Ytest, Wtest)
+    sse = mean((Ytest-mean(Ytrain)).^2);
+end
+
+function rmse = rmseEval(cmp, Xtrain, Ytrain, Wtrain, Xtest, Ytest, Wtest)
+    rmse = sqrt(mean((Ytest-mean(Ytrain)).^2));
+end
+
+function rse = rseEval(cmp, Xtrain, Ytrain, Wtrain, Xtest, Ytest, Wtest)
+    rse = mean((Ytest-mean(Ytrain)).^2) ./ mean((Ytest-mean(Ytrain)).^2);
+end
+
+function r2 = r2Eval(cmp, Xtrain, Ytrain, Wtrain, Xtest, Ytest, Wtest)
+    rmse = sqrt(mean((Ytest-mean(Ytrain)).^2));
+    rmse0 = std(Ytrain-mean(Ytrain));
+    r2 = 1 - (rmse/rmse0);
+end
