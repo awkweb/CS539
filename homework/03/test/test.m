@@ -59,9 +59,21 @@ csvm_polynomial = fitcsvm(X_csvm, Y_csvm, 'KernelFunction', 'polynomial',...
 csvm_rbf = fitcsvm(X_csvm, Y_csvm, 'KernelFunction', 'rbf');
 % csvm_sig = fitcsvm(X_csvm, Y_csvm, 'KernelFunction', mysigmoid);
 
-X_net = optdigits_train(1:150,1:end-1);
-Y_net = optdigits_test(1:30,1:end-1);
-net = patternnet(2);
+X_net = optdigits_train(:,1:end-1);
+Y_net = optdigits_train(:,end);
+[m,n] = size(optdigits_train);
+cvp_indices = cvpartition(m, 'holdout', 0.25);
+X_net_train = X_net(training(cvp_indices),:)';
+Y_net_train = Y_net(training(cvp_indices),:)';
+X_net_test = X_net(test(cvp_indices),:)';
+Y_net_test = Y_net(test(cvp_indices),:)';
+net = patternnet(2, 'traingd');
+% net.trainParam.epochs = 5000;
+% net.trainParam.goal = 0;
+% net.trainParam.lr = 0.01;
+% net.trainParam.max_fail = 6;
+% net.trainParam.min_grad = 1e-5;
+% net.trainParam.time = inf;
 
 % =========================================================================
 % CROSS VALIDATION
@@ -115,24 +127,49 @@ time_start = tic;
 csvm_label = kfoldPredict(cv_csvm);
 time_elapsed = toc(time_start);
 cv_csvm_error = kfoldLoss(cv_csvm);
-cvc_csvm_accuracy = 1 - cv_csvm_error;
+cv_csvm_accuracy = 1 - cv_csvm_error;
 
 index = randsample(numel(csvm_label),10);
 table(Y_csvm(index,:).salary, csvm_label(index,:),...
     'VariableNames', {'TrueLabels','PredictedLabels'})
 
 display(time_elapsed);
-display(cvc_csvm_accuracy);
+display(cv_csvm_accuracy);
 
 cv_csvm_confusionmat = confusionmat(Y_csvm.salary, csvm_label);
 display(cv_csvm_confusionmat);
 
+% csvm_sv = csvm.SupportVectors;
+
 disp('NEURAL NETWORK');
 disp('===================================================================')
-net = train(net, X_net, Y_net);
-y = net(X_net);
-perf = perform(net, Y_net, y);
-classes = vec2ind(y);
+net = train(net, X_net_train, Y_net_train);
+y = net(X_net_train);
+perf = perform(net, Y_net_train, y);
+Y_score = net(X_net_test);
+time_start = tic;
+Y_pred = round(Y_score);
+time_elapsed = toc(time_start);
+
+display(time_elapsed);
+
+[rocx, rocy, roct, auc] = perfcurve(Y_net_test, Y_score, 1);
+figure;
+plot(rocx, rocy)
+title('Neural Network ROC');
+grid on;
+xlabel('False positive rate [ = FP/(TN+FP)]');
+ylabel('True positive rate [ = TP/(TP+FN)]');
+
+index = randsample(numel(Y_pred),10);
+table(Y_net_test(:,index)', Y_pred(:,index)',...
+    'VariableNames', {'TrueLabels','PredictedLabels'})
+
+% percent_correct = mean(sum(Y_pred == X_net_test)/length(X_net_test) * 100);
+% display(percent_correct);
+
+% cv_net_confusionmat = confusionmat(Y_net_test, Y_pred);
+% display(cv_net_confusionmat);
 
 % =========================================================================
 % FUNCTIONS (that matlab should have built-in, but doesn't :(
