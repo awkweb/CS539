@@ -1,0 +1,850 @@
+test
+help knn
+
+knn not found.
+
+Use the Help browser search field to <a href="matlab:docsearch knn">search the documentation</a>, or
+type "<a href="matlab:help help">help help</a>" for help command options, such as help for methods.
+
+test
+{Undefined function or variable 'patternet'.
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('test', '/Users/tom/Documents/cs539/homework/03/test2/test.m', 29)" style="font-weight:bold">test</a> (<a href="matlab: opentoline('/Users/tom/Documents/cs539/homework/03/test2/test.m',29,0)">line 29</a>)
+net = patternet(hidden_layer_size);
+} 
+test
+{Error using <a href="matlab:matlab.internal.language.introspective.errorDocCallback('nntraining.setup>setupPerWorker', '/Applications/MATLAB_R2017a.app/toolbox/nnet/nnutils/+nntraining/setup.m', 61)" style="font-weight:bold">nntraining.setup>setupPerWorker</a> (<a href="matlab: opentoline('/Applications/MATLAB_R2017a.app/toolbox/nnet/nnutils/+nntraining/setup.m',61,0)">line 61</a>)
+Inputs X is not a matrix or cell array.
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('nntraining.setup', '/Applications/MATLAB_R2017a.app/toolbox/nnet/nnutils/+nntraining/setup.m', 43)" style="font-weight:bold">nntraining.setup</a> (<a href="matlab: opentoline('/Applications/MATLAB_R2017a.app/toolbox/nnet/nnutils/+nntraining/setup.m',43,0)">line 43</a>)
+  [net,data,tr,err] = setupPerWorker(net,trainFcn,X,Xi,Ai,T,EW,enableConfigure);
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('network/train', '/Applications/MATLAB_R2017a.app/toolbox/nnet/nnet/@network/train.m', 335)" style="font-weight:bold">network/train</a> (<a href="matlab: opentoline('/Applications/MATLAB_R2017a.app/toolbox/nnet/nnet/@network/train.m',335,0)">line 335</a>)
+[net,data,tr,err] = nntraining.setup(net,net.trainFcn,X,Xi,Ai,T,EW,enableConfigure,isComposite);
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('test', '/Users/tom/Documents/cs539/homework/03/test2/test.m', 30)" style="font-weight:bold">test</a> (<a href="matlab: opentoline('/Users/tom/Documents/cs539/homework/03/test2/test.m',30,0)">line 30</a>)
+[net,tr] = train(net, X_train, Y_train);
+} 
+test
+{Error using <a href="matlab:matlab.internal.language.introspective.errorDocCallback('load')" style="font-weight:bold">load</a>
+Unable to read file 'wdbc.data'. No such file or directory.
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('test', '/Users/tom/Documents/cs539/homework/03/test2/test.m', 5)" style="font-weight:bold">test</a> (<a href="matlab: opentoline('/Users/tom/Documents/cs539/homework/03/test2/test.m',5,0)">line 5</a>)
+load wdbc.data
+} 
+test
+help pca
+ <strong>pca</strong> Principal Component Analysis (<strong>pca</strong>) on raw data.
+    COEFF = <strong>pca</strong>(X) returns the principal component coefficients for the N
+    by P data matrix X. Rows of X correspond to observations and columns to
+    variables. Each column of COEFF contains coefficients for one principal
+    component. The columns are in descending order in terms of component
+    variance (LATENT). <strong>pca</strong>, by default, centers the data and uses the
+    singular value decomposition algorithm. For the non-default options,
+    use the name/value pair arguments.
+    
+    [COEFF, SCORE] = <strong>pca</strong>(X) returns the principal component score, which is
+    the representation of X in the principal component space. Rows of SCORE
+    correspond to observations, columns to components. The centered data
+    can be reconstructed by SCORE*COEFF'.
+ 
+    [COEFF, SCORE, LATENT] = <strong>pca</strong>(X) returns the principal component
+    variances, i.e., the eigenvalues of the covariance matrix of X, in
+    LATENT.
+ 
+    [COEFF, SCORE, LATENT, TSQUARED] = <strong>pca</strong>(X) returns Hotelling's T-squared
+    statistic for each observation in X. <strong>pca</strong> uses all principal components
+    to compute the TSQUARED (computes in the full space) even when fewer
+    components are requested (see the 'NumComponents' option below). For
+    TSQUARED in the reduced space, use MAHAL(SCORE,SCORE).
+ 
+    [COEFF, SCORE, LATENT, TSQUARED, EXPLAINED] = <strong>pca</strong>(X) returns a vector
+    containing the percentage of the total variance explained by each
+    principal component.
+ 
+    [COEFF, SCORE, LATENT, TSQUARED, EXPLAINED, MU] = <strong>pca</strong>(X) returns the
+    estimated mean, MU, when 'Centered' is set to true; and all zeros when
+    set to false.
+ 
+    [...] = <strong>pca</strong>(..., 'PARAM1',val1, 'PARAM2',val2, ...) specifies optional
+    parameter name/value pairs to control the computation and handling of
+    special data types. Parameters are:
+    
+     'Algorithm' - Algorithm that <strong>pca</strong> uses to perform the principal
+                   component analysis. Choices are:
+         'svd'   - Singular Value Decomposition of X (the default).
+         'eig'   - Eigenvalue Decomposition of the covariance matrix. It
+                   is faster than SVD when N is greater than P, but less
+                   accurate because the condition number of the covariance
+                   is the square of the condition number of X.
+         'als'   - Alternating Least Squares (ALS) algorithm which finds
+                   the best rank-K approximation by factoring a X into a
+                   N-by-K left factor matrix and a P-by-K right factor
+                   matrix, where K is the number of principal components.
+                   The factorization uses an iterative method starting with
+                   random initial values. ALS algorithm is designed to
+                   better handle missing values. It deals with missing
+                   values without listwise deletion (see {'Rows',
+                   'complete'}).
+ 
+      'Centered' - Indicator for centering the columns of X. Choices are: 
+          true   - The default. <strong>pca</strong> centers X by subtracting off column
+                   means before computing SVD or EIG. If X contains NaN
+                   missing values, NANMEAN is used to find the mean with
+                   any data available.
+          false  - <strong>pca</strong> does not center the data. In this case, the original
+                   data X can be reconstructed by X = SCORE*COEFF'. 
+ 
+      'Economy'  - Indicator for economy size output, when D the degrees of
+                   freedom is smaller than P. D, is equal to M-1, if data
+                   is centered and M otherwise. M is the number of rows
+                   without any NaNs if you use 'Rows', 'complete'; or the
+                   number of rows without any NaNs in the column pair that
+                   has the maximum number of rows without NaNs if you use
+                   'Rows', 'pairwise'. When D < P, SCORE(:,D+1:P) and
+                   LATENT(D+1:P) are necessarily zero, and the columns of
+                   COEFF(:,D+1:P) define directions that are orthogonal to
+                   X. Choices are:
+          true   - This is the default. <strong>pca</strong> returns only the first D
+                   elements of LATENT and the corresponding columns of
+                   COEFF and SCORE. This can be significantly faster when P
+                   is much larger than D. NOTE: <strong>pca</strong> always returns economy
+                   size outputs if 'als' algorithm is specifed.
+          false  - <strong>pca</strong> returns all elements of LATENT. Columns of COEFF and
+                   SCORE corresponding to zero elements in LATENT are
+                   zeros.
+ 
+      'NumComponents' - The number of components desired, specified as a
+                   scalar integer K satisfying 0 < K <= P. When specified,
+                   <strong>pca</strong> returns the first K columns of COEFF and SCORE.
+ 
+      'Rows'     - Action to take when the data matrix X contains NaN
+                   values. If 'Algorithm' option is set to 'als, this
+                   option is ignored as ALS algorithm deals with missing
+                   values without removing them. Choices are:
+          'complete' - The default action. Observations with NaN values
+                       are removed before calculation. Rows of NaNs are
+                       inserted back into SCORE at the corresponding
+                       location.
+          'pairwise' - If specified, <strong>pca</strong> switches 'Algorithm' to 'eig'. 
+                       This option only applies when 'eig' method is used.
+                       The (I,J) element of the covariance matrix is
+                       computed using rows with no NaN values in columns I
+                       or J of X. Please note that the resulting covariance
+                       matrix may not be positive definite. In that case,
+                       <strong>pca</strong> terminates with an error message.
+          'all'      - X is expected to have no missing values. All data
+                       are used, and execution will be terminated if NaN is
+                       found.
+                      
+      'Weights'  - Observation weights, a vector of length N containing all
+                   positive elements.
+ 
+      'VariableWeights' - Variable weights. Choices are:
+           - a vector of length P containing all positive elements.
+           - the string 'variance'. The variable weights are the inverse of
+             sample variance. If 'Centered' is set true at the same time,
+             the data matrix X is centered and standardized. In this case,
+             <strong>pca</strong> returns the principal components based on the correlation
+             matrix.
+ 
+    The following parameter name/value pairs specify additional options
+    when alternating least squares ('als') algorithm is used.
+ 
+       'Coeff0'  - Initial value for COEFF, a P-by-K matrix. The default is
+                   a random matrix.
+ 
+       'Score0'  - Initial value for SCORE, a N-by-K matrix. The default is
+                   a matrix of random values.
+ 
+       'Options' - An options structure as created by the STATSET function.
+                   <strong>pca</strong> uses the following fields:
+           'Display' - Level of display output.  Choices are 'off' (the
+                       default), 'final', and 'iter'.
+           'MaxIter' - Maximum number of steps allowed. The default is
+                       1000. Unlike in optimization settings, reaching
+                       MaxIter is regarded as convergence.
+            'TolFun' - Positive number giving the termination tolerance for
+                       the cost function.  The default is 1e-6.
+              'TolX' - Positive number giving the convergence threshold
+                       for relative change in the elements of L and R. The
+                       default is 1e-6.
+ 
+ 
+    Example:
+        load hald;
+        [coeff, score, latent, tsquared, explained] = pca(ingredients);
+ 
+    See also <a href="matlab:help ppca">ppca</a>, <a href="matlab:help pcacov">pcacov</a>, <a href="matlab:help pcares">pcares</a>, <a href="matlab:help biplot">biplot</a>, <a href="matlab:help barttest">barttest</a>, <a href="matlab:help canoncorr">canoncorr</a>, <a href="matlab:help factoran">factoran</a>,
+    <a href="matlab:help rotatefactors">rotatefactors</a>.
+
+    <a href="matlab:doc pca">Reference page for pca</a>
+    <a href="matlab:matlab.internal.language.introspective.overloads.displayOverloads('pca')">Other functions named pca</a>
+
+test
+{Operation terminated by user during <a href="matlab:matlab.internal.language.introspective.errorDocCallback('classreg.learning.impl.SVMImpl.make', '/Applications/MATLAB_R2017a.app/toolbox/stats/classreg/+classreg/+learning/+impl/SVMImpl.m', 527)" style="font-weight:bold">classreg.learning.impl.SVMImpl.make</a> (<a href="matlab: opentoline('/Applications/MATLAB_R2017a.app/toolbox/stats/classreg/+classreg/+learning/+impl/SVMImpl.m',527,0)">line 527</a>)
+
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('ClassificationSVM', '/Applications/MATLAB_R2017a.app/toolbox/stats/classreg/ClassificationSVM.m', 329)" style="font-weight:bold">ClassificationSVM</a> (<a href="matlab: opentoline('/Applications/MATLAB_R2017a.app/toolbox/stats/classreg/ClassificationSVM.m',329,0)">line 329</a>)
+            this.Impl = classreg.learning.impl.SVMImpl.make(...
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('classreg.learning.FitTemplate/fit', '/Applications/MATLAB_R2017a.app/toolbox/stats/classreg/+classreg/+learning/FitTemplate.m', 258)" style="font-weight:bold">classreg.learning.FitTemplate/fit</a> (<a href="matlab: opentoline('/Applications/MATLAB_R2017a.app/toolbox/stats/classreg/+classreg/+learning/FitTemplate.m',258,0)">line 258</a>)
+            [varargout{1:nargout}] = this.MakeFitObject(X,Y,W,this.ModelParams,fitArgs{:});
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('classreg.learning.ensemble.Ensemble/fitWeakLearners', '/Applications/MATLAB_R2017a.app/toolbox/stats/classreg/+classreg/+learning/+ensemble/Ensemble.m', 182)" style="font-weight:bold">classreg.learning.ensemble.Ensemble/fitWeakLearners</a> (<a href="matlab: opentoline('/Applications/MATLAB_R2017a.app/toolbox/stats/classreg/+classreg/+learning/+ensemble/Ensemble.m',182,0)">line 182</a>)
+                        trainableH = fit(learners{l},X,Y,'weights',W,optArgs{:});
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('classreg.learning.classif.ClassificationEnsemble/fitEnsemble', '/Applications/MATLAB_R2017a.app/toolbox/stats/classreg/+classreg/+learning/+classif/ClassificationEnsemble.m', 354)" style="font-weight:bold">classreg.learning.classif.ClassificationEnsemble/fitEnsemble</a> (<a href="matlab: opentoline('/Applications/MATLAB_R2017a.app/toolbox/stats/classreg/+classreg/+learning/+classif/ClassificationEnsemble.m',354,0)">line 354</a>)
+                fitWeakLearners(this,nlearn,this.ModelParams.NPrint);
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('classreg.learning.classif.ClassificationEnsemble', '/Applications/MATLAB_R2017a.app/toolbox/stats/classreg/+classreg/+learning/+classif/ClassificationEnsemble.m', 76)" style="font-weight:bold">classreg.learning.classif.ClassificationEnsemble</a> (<a href="matlab: opentoline('/Applications/MATLAB_R2017a.app/toolbox/stats/classreg/+classreg/+learning/+classif/ClassificationEnsemble.m',76,0)">line 76</a>)
+            this = fitEnsemble(this,nlearn);
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('classreg.learning.partition.ClassificationPartitionedModel', '/Applications/MATLAB_R2017a.app/toolbox/stats/classreg/+classreg/+learning/+partition/ClassificationPartitionedModel.m', 159)" style="font-weight:bold">classreg.learning.partition.ClassificationPartitionedModel</a> (<a href="matlab: opentoline('/Applications/MATLAB_R2017a.app/toolbox/stats/classreg/+classreg/+learning/+partition/ClassificationPartitionedModel.m',159,0)">line 159</a>)
+            this.Ensemble = classreg.learning.classif.ClassificationEnsemble(...
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('classreg.learning.FitTemplate/fit', '/Applications/MATLAB_R2017a.app/toolbox/stats/classreg/+classreg/+learning/FitTemplate.m', 258)" style="font-weight:bold">classreg.learning.FitTemplate/fit</a> (<a href="matlab: opentoline('/Applications/MATLAB_R2017a.app/toolbox/stats/classreg/+classreg/+learning/FitTemplate.m',258,0)">line 258</a>)
+            [varargout{1:nargout}] = this.MakeFitObject(X,Y,W,this.ModelParams,fitArgs{:});
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('ClassificationSVM/crossval', '/Applications/MATLAB_R2017a.app/toolbox/stats/classreg/ClassificationSVM.m', 521)" style="font-weight:bold">ClassificationSVM/crossval</a> (<a href="matlab: opentoline('/Applications/MATLAB_R2017a.app/toolbox/stats/classreg/ClassificationSVM.m',521,0)">line 521</a>)
+            partModel = fit(temp,this.X,this.Y,'Weights',this.W,...
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('test', '/Users/tom/Documents/cs539/homework/03/test2/test.m', 49)" style="font-weight:bold">test</a> (<a href="matlab: opentoline('/Users/tom/Documents/cs539/homework/03/test2/test.m',49,0)">line 49</a>)
+csvm_poly_cv = crossval(csvm_linear, 'Kfold', 4);
+} 
+view(tree_cv.Trained{1}, 'Mode', 'graph')
+[Warning: While loading an object of class 'proplistener':
+No constructor 'event.proplistener' with matching signature found.] 
+[> In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('matlab.graphics.internal.figfile.FigFile/read', '/Applications/MATLAB_R2017a.app/toolbox/matlab/graphics/+matlab/+graphics/+internal/+figfile/@FigFile/read.m', 31)" style="font-weight:bold">matlab.graphics.internal.figfile.FigFile/read</a> (<a href="matlab: opentoline('/Applications/MATLAB_R2017a.app/toolbox/matlab/graphics/+matlab/+graphics/+internal/+figfile/@FigFile/read.m',31,0)">line 31</a>)
+  In matlab.graphics.internal.figfile.FigFile
+  In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('loadFigure', '/Applications/MATLAB_R2017a.app/toolbox/matlab/graphics/private/loadFigure.m', 31)" style="font-weight:bold">loadFigure</a> (<a href="matlab: opentoline('/Applications/MATLAB_R2017a.app/toolbox/matlab/graphics/private/loadFigure.m',31,0)">line 31</a>)
+  In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('openfig>localOpenFigure', '/Applications/MATLAB_R2017a.app/toolbox/matlab/graphics/openfig.m', 69)" style="font-weight:bold">openfig>localOpenFigure</a> (<a href="matlab: opentoline('/Applications/MATLAB_R2017a.app/toolbox/matlab/graphics/openfig.m',69,0)">line 69</a>)
+  In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('openfig', '/Applications/MATLAB_R2017a.app/toolbox/matlab/graphics/openfig.m', 40)" style="font-weight:bold">openfig</a> (<a href="matlab: opentoline('/Applications/MATLAB_R2017a.app/toolbox/matlab/graphics/openfig.m',40,0)">line 40</a>)
+  In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('open', '/Applications/MATLAB_R2017a.app/toolbox/matlab/general/open.m', 141)" style="font-weight:bold">open</a> (<a href="matlab: opentoline('/Applications/MATLAB_R2017a.app/toolbox/matlab/general/open.m',141,0)">line 141</a>)
+  In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('uiopen', '/Applications/MATLAB_R2017a.app/toolbox/matlab/uitools/uiopen.m', 167)" style="font-weight:bold">uiopen</a> (<a href="matlab: opentoline('/Applications/MATLAB_R2017a.app/toolbox/matlab/uitools/uiopen.m',167,0)">line 167</a>)] 
+[Warning: During load:
+ An invalid default object has been detected while loading a heterogeneous array of class
+ event.proplistener. An empty array of class event.proplistener will be returned.] 
+[> In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('matlab.graphics.internal.figfile.FigFile/read', '/Applications/MATLAB_R2017a.app/toolbox/matlab/graphics/+matlab/+graphics/+internal/+figfile/@FigFile/read.m', 31)" style="font-weight:bold">matlab.graphics.internal.figfile.FigFile/read</a> (<a href="matlab: opentoline('/Applications/MATLAB_R2017a.app/toolbox/matlab/graphics/+matlab/+graphics/+internal/+figfile/@FigFile/read.m',31,0)">line 31</a>)
+  In matlab.graphics.internal.figfile.FigFile
+  In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('loadFigure', '/Applications/MATLAB_R2017a.app/toolbox/matlab/graphics/private/loadFigure.m', 31)" style="font-weight:bold">loadFigure</a> (<a href="matlab: opentoline('/Applications/MATLAB_R2017a.app/toolbox/matlab/graphics/private/loadFigure.m',31,0)">line 31</a>)
+  In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('openfig>localOpenFigure', '/Applications/MATLAB_R2017a.app/toolbox/matlab/graphics/openfig.m', 69)" style="font-weight:bold">openfig>localOpenFigure</a> (<a href="matlab: opentoline('/Applications/MATLAB_R2017a.app/toolbox/matlab/graphics/openfig.m',69,0)">line 69</a>)
+  In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('openfig', '/Applications/MATLAB_R2017a.app/toolbox/matlab/graphics/openfig.m', 40)" style="font-weight:bold">openfig</a> (<a href="matlab: opentoline('/Applications/MATLAB_R2017a.app/toolbox/matlab/graphics/openfig.m',40,0)">line 40</a>)
+  In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('open', '/Applications/MATLAB_R2017a.app/toolbox/matlab/general/open.m', 141)" style="font-weight:bold">open</a> (<a href="matlab: opentoline('/Applications/MATLAB_R2017a.app/toolbox/matlab/general/open.m',141,0)">line 141</a>)
+  In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('uiopen', '/Applications/MATLAB_R2017a.app/toolbox/matlab/uitools/uiopen.m', 167)" style="font-weight:bold">uiopen</a> (<a href="matlab: opentoline('/Applications/MATLAB_R2017a.app/toolbox/matlab/uitools/uiopen.m',167,0)">line 167</a>)] 
+[Warning: While loading an object of class 'proplistener':
+No constructor 'event.proplistener' with matching signature found.] 
+[> In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('matlab.graphics.internal.figfile.FigFile/read', '/Applications/MATLAB_R2017a.app/toolbox/matlab/graphics/+matlab/+graphics/+internal/+figfile/@FigFile/read.m', 31)" style="font-weight:bold">matlab.graphics.internal.figfile.FigFile/read</a> (<a href="matlab: opentoline('/Applications/MATLAB_R2017a.app/toolbox/matlab/graphics/+matlab/+graphics/+internal/+figfile/@FigFile/read.m',31,0)">line 31</a>)
+  In matlab.graphics.internal.figfile.FigFile
+  In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('loadFigure', '/Applications/MATLAB_R2017a.app/toolbox/matlab/graphics/private/loadFigure.m', 31)" style="font-weight:bold">loadFigure</a> (<a href="matlab: opentoline('/Applications/MATLAB_R2017a.app/toolbox/matlab/graphics/private/loadFigure.m',31,0)">line 31</a>)
+  In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('openfig>localOpenFigure', '/Applications/MATLAB_R2017a.app/toolbox/matlab/graphics/openfig.m', 69)" style="font-weight:bold">openfig>localOpenFigure</a> (<a href="matlab: opentoline('/Applications/MATLAB_R2017a.app/toolbox/matlab/graphics/openfig.m',69,0)">line 69</a>)
+  In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('openfig', '/Applications/MATLAB_R2017a.app/toolbox/matlab/graphics/openfig.m', 40)" style="font-weight:bold">openfig</a> (<a href="matlab: opentoline('/Applications/MATLAB_R2017a.app/toolbox/matlab/graphics/openfig.m',40,0)">line 40</a>)
+  In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('open', '/Applications/MATLAB_R2017a.app/toolbox/matlab/general/open.m', 141)" style="font-weight:bold">open</a> (<a href="matlab: opentoline('/Applications/MATLAB_R2017a.app/toolbox/matlab/general/open.m',141,0)">line 141</a>)
+  In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('uiopen', '/Applications/MATLAB_R2017a.app/toolbox/matlab/uitools/uiopen.m', 167)" style="font-weight:bold">uiopen</a> (<a href="matlab: opentoline('/Applications/MATLAB_R2017a.app/toolbox/matlab/uitools/uiopen.m',167,0)">line 167</a>)] 
+[Warning: During load:
+ An invalid default object has been detected while loading a heterogeneous array of class
+ event.proplistener. An empty array of class event.proplistener will be returned.] 
+[> In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('matlab.graphics.internal.figfile.FigFile/read', '/Applications/MATLAB_R2017a.app/toolbox/matlab/graphics/+matlab/+graphics/+internal/+figfile/@FigFile/read.m', 31)" style="font-weight:bold">matlab.graphics.internal.figfile.FigFile/read</a> (<a href="matlab: opentoline('/Applications/MATLAB_R2017a.app/toolbox/matlab/graphics/+matlab/+graphics/+internal/+figfile/@FigFile/read.m',31,0)">line 31</a>)
+  In matlab.graphics.internal.figfile.FigFile
+  In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('loadFigure', '/Applications/MATLAB_R2017a.app/toolbox/matlab/graphics/private/loadFigure.m', 31)" style="font-weight:bold">loadFigure</a> (<a href="matlab: opentoline('/Applications/MATLAB_R2017a.app/toolbox/matlab/graphics/private/loadFigure.m',31,0)">line 31</a>)
+  In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('openfig>localOpenFigure', '/Applications/MATLAB_R2017a.app/toolbox/matlab/graphics/openfig.m', 69)" style="font-weight:bold">openfig>localOpenFigure</a> (<a href="matlab: opentoline('/Applications/MATLAB_R2017a.app/toolbox/matlab/graphics/openfig.m',69,0)">line 69</a>)
+  In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('openfig', '/Applications/MATLAB_R2017a.app/toolbox/matlab/graphics/openfig.m', 40)" style="font-weight:bold">openfig</a> (<a href="matlab: opentoline('/Applications/MATLAB_R2017a.app/toolbox/matlab/graphics/openfig.m',40,0)">line 40</a>)
+  In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('open', '/Applications/MATLAB_R2017a.app/toolbox/matlab/general/open.m', 141)" style="font-weight:bold">open</a> (<a href="matlab: opentoline('/Applications/MATLAB_R2017a.app/toolbox/matlab/general/open.m',141,0)">line 141</a>)
+  In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('uiopen', '/Applications/MATLAB_R2017a.app/toolbox/matlab/uitools/uiopen.m', 167)" style="font-weight:bold">uiopen</a> (<a href="matlab: opentoline('/Applications/MATLAB_R2017a.app/toolbox/matlab/uitools/uiopen.m',167,0)">line 167</a>)] 
+scatter3(wdbc_data.Var1,wdbc_data.Var2,wdbc_data.Var4)
+scatter(wdbc_data.Var1,wdbc_data.Var2)
+scatter(wdbc_data.Var3,wdbc_data.Var2)
+gscatter(wdbc_data.Var2,wdbc_data.Var3,wdbc_data.Var1)
+max(wdbc_data(2))
+{You cannot subscript a table using linear indexing (one subscript) or multidimensional indexing (three
+or more subscripts). Use a row subscript and a variable subscript.
+} 
+max(wdbc_data.Var2)
+
+ans =
+
+   28.1100
+
+max(wdbc_data.Var3)
+
+ans =
+
+   39.2800
+
+test
+{Operation terminated by user during <a href="matlab:matlab.internal.language.introspective.errorDocCallback('classreg.learning.impl.SVMImpl.make', '/Applications/MATLAB_R2017a.app/toolbox/stats/classreg/+classreg/+learning/+impl/SVMImpl.m', 527)" style="font-weight:bold">classreg.learning.impl.SVMImpl.make</a> (<a href="matlab: opentoline('/Applications/MATLAB_R2017a.app/toolbox/stats/classreg/+classreg/+learning/+impl/SVMImpl.m',527,0)">line 527</a>)
+
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('ClassificationSVM', '/Applications/MATLAB_R2017a.app/toolbox/stats/classreg/ClassificationSVM.m', 329)" style="font-weight:bold">ClassificationSVM</a> (<a href="matlab: opentoline('/Applications/MATLAB_R2017a.app/toolbox/stats/classreg/ClassificationSVM.m',329,0)">line 329</a>)
+            this.Impl = classreg.learning.impl.SVMImpl.make(...
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('classreg.learning.FitTemplate/fit', '/Applications/MATLAB_R2017a.app/toolbox/stats/classreg/+classreg/+learning/FitTemplate.m', 258)" style="font-weight:bold">classreg.learning.FitTemplate/fit</a> (<a href="matlab: opentoline('/Applications/MATLAB_R2017a.app/toolbox/stats/classreg/+classreg/+learning/FitTemplate.m',258,0)">line 258</a>)
+            [varargout{1:nargout}] =
+            this.MakeFitObject(X,Y,W,this.ModelParams,fitArgs{:});
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('ClassificationSVM.fit', '/Applications/MATLAB_R2017a.app/toolbox/stats/classreg/ClassificationSVM.m', 240)" style="font-weight:bold">ClassificationSVM.fit</a> (<a href="matlab: opentoline('/Applications/MATLAB_R2017a.app/toolbox/stats/classreg/ClassificationSVM.m',240,0)">line 240</a>)
+            this = fit(temp,X,Y);
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('fitcsvm', '/Applications/MATLAB_R2017a.app/toolbox/stats/classreg/fitcsvm.m', 370)" style="font-weight:bold">fitcsvm</a> (<a href="matlab: opentoline('/Applications/MATLAB_R2017a.app/toolbox/stats/classreg/fitcsvm.m',370,0)">line 370</a>)
+    obj = ClassificationSVM.fit(X,Y,RemainingArgs{:});
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('test', '/Users/tom/Documents/cs539/homework/03/test2/test.m', 56)" style="font-weight:bold">test</a> (<a href="matlab: opentoline('/Users/tom/Documents/cs539/homework/03/test2/test.m',56,0)">line 56</a>)
+csvm_linear = fitcsvm(X_train, Y_train, 'KernelFunction', 'polynomial',...
+} 
+test
+test
+
+tree_precision =
+
+    0.8998
+
+
+tree_recall =
+
+    0.7220    1.2170
+
+
+tree2_precision =
+
+    0.8998
+
+
+tree2_recall =
+
+    0.7220    1.2170
+
+test
+
+tree_precision =
+
+    0.9181
+
+
+tree_recall =
+
+    0.7568    1.1667
+
+
+tree2_precision =
+
+    0.9181
+
+
+tree2_recall =
+
+    0.7568    1.1667
+
+test
+
+tree_precision =
+
+    0.9313
+
+
+tree_recall =
+
+    0.7528    1.2315
+
+
+tree2_precision =
+
+    0.8969
+
+
+tree2_recall =
+
+    0.7201    1.2138
+
+test
+
+tree_precision =
+
+    0.9348
+
+
+tree_recall =
+
+    0.7624    1.2226
+
+
+tree2_precision =
+
+    0.9151
+
+
+tree2_recall =
+
+    0.7939    1.0687
+
+{Operation terminated by user during <a href="matlab:matlab.internal.language.introspective.errorDocCallback('classreg.learning.impl.SVMImpl.make', '/Applications/MATLAB_R2017a.app/toolbox/stats/classreg/+classreg/+learning/+impl/SVMImpl.m', 527)" style="font-weight:bold">classreg.learning.impl.SVMImpl.make</a> (<a href="matlab: opentoline('/Applications/MATLAB_R2017a.app/toolbox/stats/classreg/+classreg/+learning/+impl/SVMImpl.m',527,0)">line 527</a>)
+
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('ClassificationSVM', '/Applications/MATLAB_R2017a.app/toolbox/stats/classreg/ClassificationSVM.m', 329)" style="font-weight:bold">ClassificationSVM</a> (<a href="matlab: opentoline('/Applications/MATLAB_R2017a.app/toolbox/stats/classreg/ClassificationSVM.m',329,0)">line 329</a>)
+            this.Impl = classreg.learning.impl.SVMImpl.make(...
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('classreg.learning.FitTemplate/fit', '/Applications/MATLAB_R2017a.app/toolbox/stats/classreg/+classreg/+learning/FitTemplate.m', 258)" style="font-weight:bold">classreg.learning.FitTemplate/fit</a> (<a href="matlab: opentoline('/Applications/MATLAB_R2017a.app/toolbox/stats/classreg/+classreg/+learning/FitTemplate.m',258,0)">line 258</a>)
+            [varargout{1:nargout}] =
+            this.MakeFitObject(X,Y,W,this.ModelParams,fitArgs{:});
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('classreg.learning.ensemble.Ensemble/fitWeakLearners', '/Applications/MATLAB_R2017a.app/toolbox/stats/classreg/+classreg/+learning/+ensemble/Ensemble.m', 182)" style="font-weight:bold">classreg.learning.ensemble.Ensemble/fitWeakLearners</a> (<a href="matlab: opentoline('/Applications/MATLAB_R2017a.app/toolbox/stats/classreg/+classreg/+learning/+ensemble/Ensemble.m',182,0)">line 182</a>)
+                        trainableH = fit(learners{l},X,Y,'weights',W,optArgs{:});
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('classreg.learning.classif.ClassificationEnsemble/fitEnsemble', '/Applications/MATLAB_R2017a.app/toolbox/stats/classreg/+classreg/+learning/+classif/ClassificationEnsemble.m', 354)" style="font-weight:bold">classreg.learning.classif.ClassificationEnsemble/fitEnsemble</a> (<a href="matlab: opentoline('/Applications/MATLAB_R2017a.app/toolbox/stats/classreg/+classreg/+learning/+classif/ClassificationEnsemble.m',354,0)">line 354</a>)
+                fitWeakLearners(this,nlearn,this.ModelParams.NPrint);
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('classreg.learning.classif.ClassificationEnsemble', '/Applications/MATLAB_R2017a.app/toolbox/stats/classreg/+classreg/+learning/+classif/ClassificationEnsemble.m', 76)" style="font-weight:bold">classreg.learning.classif.ClassificationEnsemble</a> (<a href="matlab: opentoline('/Applications/MATLAB_R2017a.app/toolbox/stats/classreg/+classreg/+learning/+classif/ClassificationEnsemble.m',76,0)">line 76</a>)
+            this = fitEnsemble(this,nlearn);
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('classreg.learning.partition.ClassificationPartitionedModel', '/Applications/MATLAB_R2017a.app/toolbox/stats/classreg/+classreg/+learning/+partition/ClassificationPartitionedModel.m', 159)" style="font-weight:bold">classreg.learning.partition.ClassificationPartitionedModel</a> (<a href="matlab: opentoline('/Applications/MATLAB_R2017a.app/toolbox/stats/classreg/+classreg/+learning/+partition/ClassificationPartitionedModel.m',159,0)">line 159</a>)
+            this.Ensemble = classreg.learning.classif.ClassificationEnsemble(...
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('classreg.learning.FitTemplate/fit', '/Applications/MATLAB_R2017a.app/toolbox/stats/classreg/+classreg/+learning/FitTemplate.m', 258)" style="font-weight:bold">classreg.learning.FitTemplate/fit</a> (<a href="matlab: opentoline('/Applications/MATLAB_R2017a.app/toolbox/stats/classreg/+classreg/+learning/FitTemplate.m',258,0)">line 258</a>)
+            [varargout{1:nargout}] =
+            this.MakeFitObject(X,Y,W,this.ModelParams,fitArgs{:});
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('ClassificationSVM/crossval', '/Applications/MATLAB_R2017a.app/toolbox/stats/classreg/ClassificationSVM.m', 521)" style="font-weight:bold">ClassificationSVM/crossval</a> (<a href="matlab: opentoline('/Applications/MATLAB_R2017a.app/toolbox/stats/classreg/ClassificationSVM.m',521,0)">line 521</a>)
+            partModel = fit(temp,this.X,this.Y,'Weights',this.W,...
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('test', '/Users/tom/Documents/cs539/homework/03/test2/test.m', 67)" style="font-weight:bold">test</a> (<a href="matlab: opentoline('/Users/tom/Documents/cs539/homework/03/test2/test.m',67,0)">line 67</a>)
+csvm_poly_cv = crossval(csvm_linear, 'Kfold', 4);
+} 
+view(tree2_cv.Trained{1}, 'Mode', 'graph')
+test
+
+tree_precision =
+
+    0.8916
+
+
+tree_recall =
+
+    0.7077    1.2419
+
+
+tree2_precision =
+
+    0.9064
+
+
+tree2_recall =
+
+    0.7559    1.1316
+
+help fitmnn
+
+fitmnn not found.
+
+Use the Help browser search field to <a href="matlab:docsearch fitmnn">search the documentation</a>, or
+type "<a href="matlab:help help">help help</a>" for help command options, such as help for methods.
+
+help fitknn
+--- help for <strong>fitcknn</strong> ---
+
+  <strong>fitcknn</strong> fit KNN classification model
+    KNN=<strong>fitcknn</strong>(TBL,Y) returns a KNN classification model for predictors X
+    and response Y. TBL contains the predictor variables. Y can be any of
+    the following: 
+       1. An array of class labels. Y can be a categorical array, logical
+          vector, numeric vector, or cell array of strings.
+       2. The name of a variable in TBL. This variable is used as the
+          response Y, and the remaining variables in TBL are used as
+          predictors.
+       3. A formula string such as 'y ~ x1 + x2 + x3' specifying that the
+          variable y is to be used as the response, and the other variables
+          in the formula are predictors. Any table variables not listed in
+          the formula are not used.
+ 
+    KNN=<strong>fitcknn</strong>(X,Y) is an alternative syntax that accepts X as an
+    N-by-P matrix of predictors with one row per observation and one column
+    per predictor. Y is the response and is an array of N class labels. 
+ 
+    KNN is a KNN classification model. If you use one of the following five
+    options and do not pass OptimizeHyperparameters, KNN is of class
+    ClassificationPartitionedModel: 'CrossVal', 'KFold', 'Holdout',
+    'Leaveout' or 'CVPartition'. Otherwise, KNN is of class
+    ClassificationKNN.
+ 
+    Use of a matrix X rather than a table TBL saves both memory and
+    execution time.
+ 
+    KNN=<strong>fitcknn</strong>(X,Y,'PARAM1',val1,'PARAM2',val2,...) specifies optional
+    parameter name/value pairs:
+        'CategoricalPredictors' - List of categorical predictors. Pass
+                         'CategoricalPredictors' as [] or 'all'. Use [] to
+                         indicate no predictors are categorical. Use 'all'
+                         to indicate all predictors are categorical.
+                         Default: []
+        'ClassNames'   - Array of class names. Use the data type that
+                         exists in Y. You can use this argument to order
+                         the classes or select a subset of classes for
+                         training. Default: All class names in Y.
+        'Cost'         - Square matrix, where COST(I,J) is the
+                         cost of classifying a point into class J if its
+                         true class is I. Alternatively, COST can be a
+                         structure S with two fields: S.ClassificationCosts
+                         containing the cost matrix C, and S.ClassNames
+                         containing the class names and defining the
+                         ordering of classes used for the rows and columns
+                         of the cost matrix. For S.ClassNames use the data
+                         type that exists in Y. Default: COST(I,J)=1 if
+                         I~=J, and COST(I,J)=0 if I=J.
+        'CrossVal'     - If 'on', performs 10-fold cross-validation. You
+                         use 'KFold', 'Holdout', 'Leaveout' and
+                         'CVPartition' parameters to override this
+                         cross-validation setting. You can only use one of
+                         these four options ('KFold', 'Holdout', 'Leaveout'
+                         and 'CVPartition') at a time. As an alternative,
+                         you can cross-validate later using the CROSSVAL
+                         method. Default: 'off'
+        'CVPartition'  - A partition created with CVPARTITION to use in
+                         the cross-validation.
+        'Holdout'      - Holdout validation uses the specified fraction
+                         of the data for test, and uses the rest of the
+                         data for training. Specify a numeric scalar
+                         between 0 and 1.
+        'KFold'        - Number of folds to use in cross-validation, a
+                         positive integer. Default: 10
+        'Leaveout'     - Use leave-one-out cross-validation by setting to
+                         'on'. 
+        'OptimizeHyperparameters' 
+                       - Hyperparameters to optimize. Either 'none',
+                         'auto', 'all', a cell array of eligible
+                         hyperparameter names, or a vector of
+                         optimizableVariable objects, such as that returned
+                         by the 'hyperparameters' function. To control
+                         other aspects of the optimization, use the
+                         HyperparameterOptimizationOptions name-value pair.
+                         'auto' is equivalent to {'Distance',
+                         'NumNeighbors'}. 'all' is equivalent to
+                         {'Distance', 'DistanceWeight', 'Exponent',
+                         'NumNeighbors', 'Standardize'}. 
+                         Default: 'none'.
+        'HyperparameterOptimizationOptions'
+                       - A struct specifying additional hyperparameter
+                         optimization options. To enable hyperparameter
+                         optimization, use the OptimizeHyperparameters
+                         name-value pair. Recognized fields (all optional)
+                         are:
+                        Optimizer       - One of {'bayesopt', 'gridsearch',
+                                        or 'randomsearch'} specifying the
+                                        optimization algorithm.
+                                        Default: 'bayesopt'
+                        MaxObjectiveEvaluations
+                                        - Specifies the maximum number of
+                                        function evaluations to perform.
+                                        Default: 30 for Optimizer equal to
+                                        'bayesopt' or 'randomsearch'; The
+                                        full grid size for 'gridsearch'.
+                        AcquisitionFunctionName
+                                        - When Optimizer is 'bayesopt',
+                                        specifies the Acquisition Function
+                                        to use in choosing the next point
+                                        to evaluate. See BAYESOPT for
+                                        accepted values. Default:
+                                        'expected-improvement-per-second-plus'
+                        NumGridDivisions
+                                        - When Optimizer is 'gridsearch',
+                                        specifies the number of grid
+                                        divisions per dimension. Can be a
+                                        vector with the number of divisions
+                                        for each parameter, or a scalar
+                                        applied to all parameters. For
+                                        categorical parameters, the passed
+                                        value is ignored and all categories
+                                        are used. 
+                                        Default: 10
+                        ShowPlots    	- A logical scalar. If true,
+                                        a plot is displayed of the best
+                                        function value found as a function
+                                        of the number of function
+                                        evaluations. If there are 1 or 2
+                                        parameters to optimize, it will
+                                        also display a plot of a model of
+                                        the the Objective Function vs. the
+                                        parameters being optimized.
+                                        Default: true
+                        SaveIntermediateResults
+                                        - A logical scalar. If true and
+                                        Optimizer is bayesopt, a variable
+                                        'BayesoptResults' will be
+                                        overwritten in the workspace after
+                                        each iteration. 
+                                        Default: false
+                        Verbose         - 0, 1 or 2. Controls the level of
+                                        detail of command line display.
+                                        Default: 1
+                        Repartition     - A logical scalar. If true, a
+                                        new data partitioning is created
+                                        for each function evaluation. If
+                                        false, a single partitioning is
+                                        used for all evaluations. 
+                                        Default: false
+                        Use no more than one of the following three field
+                        names, to define the objective function to be
+                        optimized:
+                        CVPartition     - A cvpartition object.
+                        Holdout         - A scalar in the range (0,1).
+                        KFold           - An integer greater than 1.
+                        Default: {KFold,5}
+        'Prior'        - Prior probabilities for each class. Specify as one
+                         of: 
+                          * A string:
+                            - 'empirical' determines class probabilities
+                              from class frequencies in Y
+                            - 'uniform' sets all class probabilities equal
+                          * A vector (one scalar value for each class)
+                          * A structure S with two fields: S.ClassProbs
+                            containing a vector of class probabilities, and
+                            S.ClassNames containing the class names and
+                            defining the ordering of classes used for the
+                            elements of this vector.
+                         If you pass numeric values, they are normalized
+                         to add up to one. Default: 'empirical'
+        'ResponseName' - Name of the response variable Y, a string. Not
+                         allowed when Y is a name or formula. Default: 'Y' 
+        'ScoreTransform' - Function handle for transforming scores, or
+                         string representing a built-in transformation
+                         function. Available functions: 'symmetric',
+                         'invlogit', 'ismax', 'symmetricismax', 'none',
+                         'logit', 'doublelogit', 'symmetriclogit',
+                          and 'sign'. Default: 'none'
+        'Weights'      - Vector of observation weights, one weight per
+                         observation. <strong>fitcknn</strong> normalizes the weights to
+                         add up to the value of the prior probability in
+                         the respective class. Default: ones(size(X,1),1).
+                         For an input table TBL, the 'Weights' value can be
+                         the name of a variable in TBL.
+        'NumNeighbors' - A positive integer specifying the number of
+                         nearest neighbors in X for classifying each point
+                         when predicting. Default: 1.
+        'NSMethod'     - Nearest neighbors search method. Value is either:
+                           'kdtree' uses a kd-tree to find nearest
+                                neighbors. 'kdtree' is only valid when the
+                                distance metric is one of the following:
+                                        - 'euclidean'
+                                        - 'cityblock'
+                                        - 'minkowski'
+                                        - 'chebychev'
+                           'exhaustive' uses the exhaustive search
+                                algorithm. The distance values from all the
+                                points in X to each point in Y are computed
+                                to find nearest neighbors.
+                         Default is 'kdtree' when the number of columns of
+                         X is not greater than 10, X is not sparse, and the
+                         distance metric is one of the above 4 metrics;
+                         otherwise, default is 'exhaustive'.
+        'IncludeTies'  - A logical value. Use true to include all neighbors
+                         whose distance equal the Kth smallest distance.
+                         Use false to include exactly K nearest neighbors. 
+        'DistanceWeight' - A string or a function handle specifying the
+                         distance weighting function. The choices for a
+                         string are:
+                           'equal': Each neighbor gets equal weight
+                                (default). 
+                           'inverse': Each neighbor gets weight 1/d, where
+                                d is the distance between this neighbor and
+                                the point being classified.
+                           'squaredinverse': Each neighbor gets weight
+                                1/d^2, where d is the distance between this
+                                neighbor and the point being classified.
+                          A function is specified using @. A distance
+                          weighting function must be of the form:
+ 
+                              function DW = DISTWGT(D)
+ 
+                          taking as argument a matrix D and returning a
+                          matrix of distance weight DW. D and DW can only
+                          contains non-negative numerical values. DW must
+                          have the same size as D. DW(I,J) is the weight
+                          computed based on D(I,J).
+         'BreakTies'    - Method of breaking ties if more than one class
+                          has the same smallest cost. Choices are:
+                            'smallest': Assign the point to the class with
+                                 the smallest index. This is the default.
+                            'nearest': Assign the point to the class of its
+                                 class of its nearest neighbor.
+                            'random': Randomly pick a class from the
+                                 classes with the smallest cost.
+         'Distance'     - A string or a function handle specifying the
+                          distance metric. The choices for a string are:
+                            'euclidean': Euclidean distance. This is the
+                                 default if there are no categorical
+                                 predictors. 
+                            'seuclidean': Standardized Euclidean distance.
+                                 Each coordinate difference between X and a
+                                 query point is divided by an element of
+                                 vector S. The default value is the
+                                 standard deviation computed from X. To
+                                 specify another value for S, use the
+                                 'Scale' argument.
+                            'cityblock': City Block distance.
+                            'chebychev': Chebychev distance (maximum
+                                 coordinate  difference).
+                            'minkowski': Minkowski distance. The default
+                                 exponent is 2. To specify a different
+                                 exponent, use the 'P' argument.
+                            'mahalanobis': Mahalanobis distance, computed
+                                 using a positive definite covariance
+                                 matrix C. The default value of C is the
+                                 covariance matrix computed from X. To
+                                 specify another value for C, use the 'Cov'
+                                 argument.
+                            'cosine': One minus the cosine of the included
+                                 angle between observations (treated as
+                                 vectors).
+                            'correlation' : One minus the sample linear
+                                 correlation between observations (treated
+                                 as sequences of values). 
+                            'spearman': One minus the sample Spearman's
+                                 rank correlation between observations
+                                 (treated as sequences of values).
+                            'hamming': Hamming distance, percentage of
+                                 coordinates that differ. This is the
+                                 default if all predictors are categorical.
+                            'jaccard': One minus the Jaccard coefficient,
+                                 the percentage of nonzero coordinates that
+                                 differ.
+                          A function is specified using @ (for example
+                          @DISTFUN). A distance function has the form:
+ 
+                              function D2 = DISTFUN(ZI, ZJ),
+ 
+                          taking as arguments a 1-by-N vector ZI containing
+                          a single row of X or Y, an M2-by-N matrix ZJ
+                          containing multiple rows of X or Y, and returning
+                          an M2-by-1 vector of distances D2, whose Jth
+                          element is the distance between the observations
+                          ZI and ZJ(J,:).
+        'Exponent'      - A positive scalar indicating the exponent of
+                          Minkowski distance. This argument is only valid
+                          when 'Distance' is 'minkowski'. Default: 2.
+        'Cov'           - A positive definite matrix indicating the
+                          covariance matrix when computing the Mahalanobis
+                          distance. This argument is only valid when
+                          'Distance' is 'mahalanobis'. Default: The
+                          covariance matrix computed from X, after
+                          excluding rows that contain any NaNs.
+        'Scale'         - A vector S containing non-negative values,
+                          with length equal to the number of columns in X.
+                          Each coordinate difference between X and a query
+                          point is divided by the corresponding element of
+                          S. This argument is only valid when 'Distance' is
+                          'seuclidean'. Default is the standard deviation
+                          of X.
+        'BucketSize'    - The maximum number of data points in the leaf
+                          node of the kd-tree (default is 50). This
+                          argument is only meaningful when 'NSMethod' is
+                          'kdtree'.
+        'Standardize'   - Logical scalar. If true, standardize X by
+                          centering and dividing columns by their standard
+                          deviations. Default: false
+ 
+    Example: Create a KNN classifier for the Fisher iris data, and compare
+             the actual and predicted species in a confusion matrix.
+       t = readtable('fisheriris.csv','format','%f%f%f%f%C');
+       knn = fitcknn(t,'Species','NumNeighbors',5);
+       confusionmat(t.Species,predict(knn,t))
+ 
+     See also <a href="matlab:help ClassificationKNN">ClassificationKNN</a>.
+
+    <a href="matlab:doc fitcknn">Reference page for fitcknn</a>
+
+test
+{Error using <a href="matlab:matlab.internal.language.introspective.errorDocCallback('internal.stats.parseArgs', '/Applications/MATLAB_R2017a.app/toolbox/stats/stats/+internal/+stats/parseArgs.m', 42)" style="font-weight:bold">internal.stats.parseArgs</a> (<a href="matlab: opentoline('/Applications/MATLAB_R2017a.app/toolbox/stats/stats/+internal/+stats/parseArgs.m',42,0)">line 42</a>)
+Wrong number of arguments.
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('classreg.learning.paramoptim.parseOptimizationArgs', '/Applications/MATLAB_R2017a.app/toolbox/stats/classreg/+classreg/+learning/+paramoptim/parseOptimizationArgs.m', 5)" style="font-weight:bold">classreg.learning.paramoptim.parseOptimizationArgs</a> (<a href="matlab: opentoline('/Applications/MATLAB_R2017a.app/toolbox/stats/classreg/+classreg/+learning/+paramoptim/parseOptimizationArgs.m',5,0)">line 5</a>)
+[OptimizeHyperparameters,~,~,RemainingArgs] = internal.stats.parseArgs(...
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('fitcknn', '/Applications/MATLAB_R2017a.app/toolbox/stats/classreg/fitcknn.m', 311)" style="font-weight:bold">fitcknn</a> (<a href="matlab: opentoline('/Applications/MATLAB_R2017a.app/toolbox/stats/classreg/fitcknn.m',311,0)">line 311</a>)
+[IsOptimizing, RemainingArgs] =
+classreg.learning.paramoptim.parseOptimizationArgs(varargin);
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('test', '/Users/tom/Documents/cs539/homework/03/test2/test.m', 26)" style="font-weight:bold">test</a> (<a href="matlab: opentoline('/Users/tom/Documents/cs539/homework/03/test2/test.m',26,0)">line 26</a>)
+knn = fitcknn(X_train, Y_train, 5);
+} 
+test
+
+tree_precision =
+
+    0.9149
+
+
+tree_recall =
+
+    0.7510    1.1807
+
+
+tree2_precision =
+
+    0.8983
+
+
+tree2_recall =
+
+    0.7733    1.0611
+
+test
+{Error using <a href="matlab:matlab.internal.language.introspective.errorDocCallback('crossval', '/Applications/MATLAB_R2017a.app/toolbox/stats/stats/crossval.m', 177)" style="font-weight:bold">crossval</a> (<a href="matlab: opentoline('/Applications/MATLAB_R2017a.app/toolbox/stats/stats/crossval.m',177,0)">line 177</a>)
+The first input must be 'mse' or 'mcr' or a function handle.
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('test', '/Users/tom/Documents/cs539/homework/03/test2/test.m', 27)" style="font-weight:bold">test</a> (<a href="matlab: opentoline('/Users/tom/Documents/cs539/homework/03/test2/test.m',27,0)">line 27</a>)
+knn_cv = crossval(knn, 'Kfold', 4);
+} 
+test
+{Error using <a href="matlab:matlab.internal.language.introspective.errorDocCallback('predict', '/Applications/MATLAB_R2017a.app/toolbox/ident/ident/predict.m', 70)" style="font-weight:bold">predict</a> (<a href="matlab: opentoline('/Applications/MATLAB_R2017a.app/toolbox/ident/ident/predict.m',70,0)">line 70</a>)
+Not enough input arguments.
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('test', '/Users/tom/Documents/cs539/homework/03/test2/test.m', 27)" style="font-weight:bold">test</a> (<a href="matlab: opentoline('/Users/tom/Documents/cs539/homework/03/test2/test.m',27,0)">line 27</a>)
+knn_label = predict(knn);
+} 
+mean(errors)
+
+ans =
+
+   9.7730e-04
+
+mean(errors2)
+
+ans =
+
+   -0.0258
+
+test
+{Error using <a href="matlab:matlab.internal.language.introspective.errorDocCallback('predict', '/Applications/MATLAB_R2017a.app/toolbox/ident/ident/predict.m', 70)" style="font-weight:bold">predict</a> (<a href="matlab: opentoline('/Applications/MATLAB_R2017a.app/toolbox/ident/ident/predict.m',70,0)">line 70</a>)
+Not enough input arguments.
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('test', '/Users/tom/Documents/cs539/homework/03/test2/test.m', 27)" style="font-weight:bold">test</a> (<a href="matlab: opentoline('/Users/tom/Documents/cs539/homework/03/test2/test.m',27,0)">line 27</a>)
+knn_label = predict(knn);
+} 
+test
+
+tree_precision =
+
+    0.8971
+
+
+tree_recall =
+
+    0.7283    1.1914
+
+
+tree2_precision =
+
+    0.8939
+
+
+tree2_recall =
+
+    0.7549    1.0977
+
+
+ans =
+
+   -0.0076
+
+
+ans =
+
+   -0.0177
+
